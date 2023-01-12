@@ -1,0 +1,52 @@
+version: "3.3"
+services:
+
+  db:
+    image: postgres:12
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+  backend:
+    image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
+    depends_on:
+      - db
+    ports:
+      - "8080:80" # BE is mapped to 8080 so we can run FE on :80
+    env_file:
+      - .env
+    environment:
+      - SERVER_NAME=${DOMAIN?Variable not set}
+      - SERVER_HOST=https://${DOMAIN?Variable not set}
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+      args:
+        INSTALL_DEV: ${INSTALL_DEV-false}
+#
+#  frontend:
+#    image: '${DOCKER_IMAGE_FRONTEND?Variable not set}:${TAG-latest}'
+#    build:
+#      context: ./frontend
+#      args:
+#        FRONTEND_ENV: ${FRONTEND_ENV-production}
+#    deploy:
+#      labels:
+#        - traefik.enable=true
+#        - traefik.constraint-label-stack=${TRAEFIK_TAG?Variable not set}
+#        - traefik.http.routers.${STACK_NAME?Variable not set}-frontend-http.rule=PathPrefix(`/`)
+#        - traefik.http.services.${STACK_NAME?Variable not set}-frontend.loadbalancer.server.port=80
+
+volumes:
+  app-db-data:
+    driver: local
+#
+#networks:
+#  traefik-public:
+#    # Allow setting it to false for testing
+#    external: ${TRAEFIK_PUBLIC_NETWORK_IS_EXTERNAL-true}
