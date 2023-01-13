@@ -3,6 +3,7 @@ services:
 
   db:
     image: postgres:12
+    container_name: k8app-db
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
     env_file:
@@ -14,7 +15,7 @@ services:
 
   backend:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
-    container_name: backend-prod
+    container_name: k8app-backend
     depends_on:
       - db
     ports:
@@ -32,7 +33,7 @@ services:
 
   frontend:
     image: '${DOCKER_IMAGE_FRONTEND?Variable not set}:${TAG-latest}'
-    container_name: frontend-prod
+    container_name: k8app-frontend
     depends_on:
       - backend
     ports:
