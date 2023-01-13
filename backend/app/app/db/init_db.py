@@ -16,13 +16,27 @@ def init_db(db: Session) -> None:
     # the tables un-commenting the next line
     # Base.metadata.create_all(bind=engine)
 
-    pass
-    # TODO: Init first 5 items
-    # user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
-    # if not user:
-    #     user_in = schemas.UserCreate(
-    #         email=settings.FIRST_SUPERUSER,
-    #         password=settings.FIRST_SUPERUSER_PASSWORD,
-    #         is_superuser=True,
-    #     )
-    #     user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+    items = crud.item.get_multi(db)
+    if not items:
+        initial_items = [
+            schemas.ItemCreate(
+                title="This is my first task",
+                checked=False
+            ),
+            schemas.ItemCreate(
+                title="This is my already done task",
+                checked=True
+            ),
+            schemas.ItemCreate(
+                title="TODO: Add new task and check this as done",
+                checked=False
+            ),
+            schemas.ItemCreate(
+                title="Reload the page to see that tasks are stored in back-end database",
+                checked=False
+            ),
+        ]
+        for i in initial_items:
+            crud.item.create(db, obj_in=i)
+
+        print("Data initialisation completed.")

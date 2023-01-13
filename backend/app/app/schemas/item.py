@@ -6,12 +6,13 @@ from pydantic import BaseModel
 # Shared properties
 class ItemBase(BaseModel):
     title: Optional[str] = None
-    description: Optional[str] = None
+    checked: Optional[bool] = None
 
 
 # Properties to receive on item creation
 class ItemCreate(ItemBase):
     title: str
+    checked: bool
 
 
 # Properties to receive on item update
@@ -23,6 +24,7 @@ class ItemUpdate(ItemBase):
 class ItemInDBBase(ItemBase):
     id: int
     title: str
+    checked: bool
 
     class Config:
         orm_mode = True
