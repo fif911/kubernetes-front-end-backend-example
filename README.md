@@ -12,6 +12,32 @@ This is a **TodoList application** which has **backend, frontend and database**.
 5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
    stored in it
 
+## Local deployment with kubernetes (macos)
+Requirements:
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+  
+Start minikube 
+```bash
+minikube start
+```
+
+Build image in minikube docker environment
+```bash
+eval $(minikube docker-env)
+
+docker buildx build backend/ --platform=linux/amd64 -t k8app-backend-image:1.1
+```
+
+Run kubernetes specs
+```bash
+kubectl apply -f k8-specs
+```
+
+Expose the services to the host, open the url in the port provided by the command. Example http://127.0.0.1:55453
+```bash
+minikube service k8app-backend --url
+```
+
 ## Tech stack
 
 ### Backend
