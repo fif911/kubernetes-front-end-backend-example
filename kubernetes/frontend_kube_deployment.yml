@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    apps: frontend
+  name: frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata: 
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-pod
+        image: nader2929/sc_course:k8app-frontend-image
+        ports:
+        - containerPort: 80
+          hostPort: 1337
+        envFrom:
+          - configMapRef:
+              name: k8app-configs
+        env:
+        - name: SERVER_NAME
+          value: localhost
+        - name: SERVER_HOST
+          value: https://localhost
+        imagePullPolicy: IfNotPresent
