@@ -3,7 +3,7 @@ import TodosList from "./TodosList";
 import Header from "./Header"
 import InputTodo from "./InputTodo"
 
-let base_url = "http://localhost:8080/api/items"
+let base_url = process.env.REACT_APP_BACKEND_BASE_URI
 
 class TodoContainer extends React.Component {
 

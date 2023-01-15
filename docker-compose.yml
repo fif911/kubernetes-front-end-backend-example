@@ -22,9 +22,6 @@ services:
       - "8080:80" # BE is mapped to 8080 so we can run FE on :80
     env_file:
       - .env
-    environment:
-      - SERVER_NAME=${DOMAIN?Variable not set}
-      - SERVER_HOST=https://${DOMAIN?Variable not set}
     build:
       context: ./backend
       dockerfile: backend.dockerfile
