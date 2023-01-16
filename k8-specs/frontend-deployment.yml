@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8app-backend
+  name: k8app-frontend
 spec:
   selector:
     matchLabels:
-      app: k8app-backend
+      app: k8app-frontend
   template:
     metadata:
       labels:
-        app: k8app-backend
+        app: k8app-frontend
     spec:
       containers:
-      - name: k8app-backend
-        image: k8app-backend-image
+      - name: k8app-frontend
+        image: k8app-frontend-image
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         envFrom:
-            - configMapRef:
-                name: k8app-backend-secret
+          - configMapRef:
+              name: k8app-frontend-secret

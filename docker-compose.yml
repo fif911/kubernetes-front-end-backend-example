@@ -27,7 +27,7 @@ services:
       - SERVER_HOST=https://${DOMAIN?Variable not set}
     build:
       context: ./backend
-      dockerfile: backend.dockerfile
+      dockerfile: Dockerfile
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
 
@@ -38,9 +38,11 @@ services:
       - backend
     ports:
       - '1337:80'
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
     build:
       context: ./frontend
-      dockerfile: frontend.dockerfile
+      dockerfile: Dockerfile
 
 volumes:
   app-db-data:

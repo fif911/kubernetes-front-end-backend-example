@@ -1,6 +1,9 @@
 # Production Dockerfile
 # build environment
 FROM node:13.12.0-alpine as build
+# Set env variable
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_DEBUG
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
