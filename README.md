@@ -6,7 +6,7 @@ This is a **TodoList application** which has **backend, frontend and database**.
 
 1) Go inside k8app folder
 2) Run ```docker-compose up```
-3) Navigate to **frontend** http://localhost:1337/
+3) Navigate to **frontend** http://localhost:5000/
 3) Navigate to **backend** http://localhost:8080/
 4) Check out main page and visit http://localhost:8080/docs to play with API
 5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
