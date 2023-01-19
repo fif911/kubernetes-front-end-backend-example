@@ -3,8 +3,10 @@ import TodosList from "./TodosList";
 import Header from "./Header"
 import InputTodo from "./InputTodo"
 
-let base_url = process.env.REACT_APP_API_URL + "/api/items"
-console.log(process.env)
+let base_url = window._env_.REACT_APP_BACKEND_BASE_URI
+console.log("Backend API URI: ")
+console.log(window._env_.REACT_APP_BACKEND_BASE_URI)
+
 class TodoContainer extends React.Component {
 
     constructor(props) {
@@ -65,7 +67,7 @@ class TodoContainer extends React.Component {
     addTodoItem = title => {
         console.log(title);
 
-        console.log(""+JSON.stringify({
+        console.log("" + JSON.stringify({
             title: title,
             checked: false,
         }))
@@ -91,6 +93,7 @@ class TodoContainer extends React.Component {
             <TodosList todos={this.state.todos}
                        handleChangeProps={this.handleChange}
                        deleteTodoProps={this.delTodo}/>
+            <hr/>
         </div>);
     }
 }
