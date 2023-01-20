@@ -5,4 +5,4 @@ metadata:
   labels:
     app: k8app-frontend
 data:
-  API_URL: http://localhost:3000
+  REACT_APP_BACKEND_BASE_URI: http://localhost:3000

@@ -3,8 +3,11 @@ kind: Service
 metadata:
   name: k8app-backend
 spec:
+  type: LoadBalancer
   selector:
     app: k8app-backend
   ports:
-  - port: 3000
+  - protocol: TCP
+    nodePort: 30002
+    port: 3000
     targetPort: 80

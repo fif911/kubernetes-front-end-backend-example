@@ -3,7 +3,7 @@ import TodosList from "./TodosList";
 import Header from "./Header"
 import InputTodo from "./InputTodo"
 
-let base_url = window._env_.REACT_APP_BACKEND_BASE_URI
+let base_url = window._env_.REACT_APP_BACKEND_BASE_URI + "/api/items"
 console.log("Backend API URI: ")
 console.log(window._env_.REACT_APP_BACKEND_BASE_URI)
 
