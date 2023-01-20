@@ -1,29 +1,29 @@
-apiVersion: v1
 kind: PersistentVolume
+apiVersion: v1
 metadata:
-  name: postgres-pv-volume
+  name: postgres-pv-volume  # Sets PV's name
   labels:
-    type: local
+    type: local  # Sets PV's type to local
     app: postgres
 spec:
-  storageClassName: minikube-hostpath
+  storageClassName: manual
   capacity:
-    storage: 5Gi
+    storage: 5Gi # Sets PV Volume
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/opt/postgres/data/pgdata"
+    path: "/mnt/data"
 ---
-apiVersion: v1
 kind: PersistentVolumeClaim
+apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: postgres-pv-claim  # Sets name of PVC
   labels:
     app: postgres
 spec:
-  storageClassName: minikube-hostpath
+  storageClassName: manual
   accessModes:
-    - ReadWriteMany
+    - ReadWriteMany  # Sets read and write access
   resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi  # Sets volume size
