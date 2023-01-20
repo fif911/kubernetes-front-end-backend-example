@@ -25,8 +25,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: backend-config
-#            - secretRef:
-#                name: postgres-secret
-#          env:
-#            - name: POSTGRES_SERVER
-#              value: postgres-service:5432
+            - configMapRef:
+                name: postgres-config # populate db-specific values (needed to keep one source of truth)
+#            - secretRef: # This does not work and results in userinfo required in URL but missing
+#                name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
+# TODO: fix this issue. Maybe its because of improper decoding of password (There is an redundant \n in prints)
