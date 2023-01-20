@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  labels:
+    app: backend
+data:
+  BACKEND_CORS_ORIGINS: '["http://localhost"]'
+  PROJECT_NAME: k8app
+  POSTGRES_SERVER: postgres-service
+  POSTGRES_DB: app
+  POSTGRES_USER: user
+  POSTGRES_PASSWORD: pass
