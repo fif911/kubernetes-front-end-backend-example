@@ -18,11 +18,7 @@ class TodoContainer extends React.Component {
     }
 
     componentDidMount() {
-        // alert(base_url + "/api/items/");
-        console.log("Items endpoint");
-        console.log(base_url + "/api/items/");
-        console.log(fetch(base_url + "/api/items/"));
-        fetch(base_url + "/api/items/")
+        fetch(base_url)
             .then(response => response.json())
             .then(data => this.setState({todos: data})).catch(console.error);
     }
