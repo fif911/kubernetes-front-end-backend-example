@@ -5,15 +5,18 @@ metadata:
   labels:
     app: k8app-frontend
 data:
-  REACT_APP_BACKEND_BASE_URI: http://backendServiceThing
-  backend.conf: |
-    upstream backendServiceThing {
-        server k8app-backend:3000;
-    }
-    server {
-        listen 80;
-        server_name backendServiceThing;
-        return 301 http://k8app-backend:3000$request_uri;
-    }
+  REACT_APP_BACKEND_BASE_URI: http://k8app.backend.com
+
+  # backend.conf: |
+  #   upstream k8app-backend {
+  #       server k8app-backend;
+  #   }
+  #   server {
+  #       listen 80;
+  #       location /backend {
+  #           # The following statement will proxy traffic to the upstream named Backend
+  #           proxy_pass http://k8app-backend:3000$request_uri;
+  #       }
+  #   }
   # BACKEND_CORS_ORIGINS: '["http://k8app-backend:*"]'
 
