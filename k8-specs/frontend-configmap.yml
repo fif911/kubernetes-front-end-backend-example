@@ -5,6 +5,15 @@ metadata:
   labels:
     app: k8app-frontend
 data:
-  API_URL: http://localhost:3000
-  REACT_APP_BACKEND_BASE_URI: http://k8app-backend
-  BACKEND_CORS_ORIGINS: '["http://k8app-backend","http://k8app-backend:1337", "http://k8app-backend:5000", "http://k8app-backend:3000", "http://k8app-backend:8080", "https://k8app-backend", "https://k8app-backend:5000", "https://k8app-backend:3000", "https://k8app-backend:8080"]'
+  REACT_APP_BACKEND_BASE_URI: http://backendServiceThing
+  backend.conf: |
+    upstream backendServiceThing {
+        server k8app-backend:3000;
+    }
+    server {
+        listen 80;
+        server_name backendServiceThing;
+        return 301 http://k8app-backend:3000$request_uri;
+    }
+  # BACKEND_CORS_ORIGINS: '["http://k8app-backend:*"]'
+

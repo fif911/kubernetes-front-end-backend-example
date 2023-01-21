@@ -12,11 +12,19 @@ spec:
         app: k8app-frontend
     spec:
       containers:
-      - name: k8app-frontend
-        image: nader2929/sc_course:k8app-frontend-image
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-        envFrom:
-          - configMapRef:
-              name: k8app-frontend-secret
+        - name: k8app-frontend
+          image: nader2929/sc_course:k8app-frontend-image
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: k8app-frontend-secret
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/backend.conf
+              subPath: backend.conf
+              name: backendconfdata
+      volumes:
+        - name: backendconfdata
+          configMap:
+            name: k8app-frontend-secret
