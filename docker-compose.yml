@@ -24,7 +24,7 @@ services:
       - .env
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: backend.dockerfile
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
 
@@ -41,7 +41,7 @@ services:
 #      - "REACT_APP_BACKEND_BASE_URI=production.example.com"
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: frontend.dockerfile
 
 volumes:
   app-db-data:
