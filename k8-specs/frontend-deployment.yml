@@ -20,11 +20,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: k8app-frontend-secret
-      #     volumeMounts:
-      #       - mountPath: /etc/nginx/conf.d/backend.conf
-      #         subPath: backend.conf
-      #         name: backendconfdata
-      # volumes:
-      #   - name: backendconfdata
-      #     configMap:
-      #       name: k8app-frontend-secret

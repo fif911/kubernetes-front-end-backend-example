@@ -55,3 +55,6 @@ Postgres is used as primary data store. Credentials can be found in .env file.
 ## Further details
 
 See detailed docs on ```backend``` and ```frontend``` in corresponding folders.
+
+TODO
+- Seems like when you delete something from the frontend it still exists in the database 
