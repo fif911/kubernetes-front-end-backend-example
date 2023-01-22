@@ -20,3 +20,5 @@ kubectl rollout restart deployments.apps/db
 kubectl rollout restart deployments.apps/frontend
 kubectl rollout restart deployments.apps/backend
 ```
+
+microk8s enable ingress:default-ssl-certificate=default/frontend-tls-secret

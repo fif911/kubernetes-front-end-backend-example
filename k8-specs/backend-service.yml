@@ -7,5 +7,9 @@ spec:
     app: k8app-backend
   ports:
   - port: 3000
+    name: http
     targetPort: 80
+  - port: 4000
+    name: https
+    targetPort: 443
   type: LoadBalancer

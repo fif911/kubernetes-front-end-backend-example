@@ -4,8 +4,12 @@ import Header from "./Header"
 import InputTodo from "./InputTodo"
 
 let base_url = window._env_.REACT_APP_BACKEND_BASE_URI
+base_url = window.location.protocol + "//" + base_url
+if (!(base_url.endsWith("/"))){
+    base_url = base_url + "/";
+}
 console.log("Backend API URI: ")
-console.log(window._env_.REACT_APP_BACKEND_BASE_URI)
+console.log(base_url)
 
 class TodoContainer extends React.Component {
 
@@ -18,8 +22,10 @@ class TodoContainer extends React.Component {
     }
 
     componentDidMount() {
-        fetch(base_url)
-            .then(response => response.json())
+        let fetch_result = fetch(base_url);
+        console.log("Fetch result: ");
+        console.log(fetch_result);
+        fetch_result.then(response => response.json())
             .then(data => this.setState({todos: data})).catch(console.error);
     }
 

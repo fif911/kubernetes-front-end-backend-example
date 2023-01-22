@@ -5,5 +5,5 @@ metadata:
   labels:
     app: k8app-frontend
 data:
-  REACT_APP_BACKEND_BASE_URI: http://k8app.backend.com/api/items
+  REACT_APP_BACKEND_BASE_URI: k8app.backend.com/api/items
 

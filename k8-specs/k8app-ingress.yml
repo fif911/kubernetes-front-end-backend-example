@@ -6,6 +6,11 @@ metadata:
     kubernetes.io/ingress.class: public
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+  - hosts:
+    - k8app.com
+    - k8app.backend.com
+    secretName: frontend-tls-secret
   rules:
   - host: k8app.com
     http:
