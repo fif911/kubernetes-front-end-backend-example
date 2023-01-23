@@ -21,9 +21,9 @@ branches
 
 #### k8s folder
 
-1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env) ```
-2) Rebuild the docker images so now minikube sees them ```docker-compose up --build; docker-compose down```
-3) Navigate to ```k8s``` folder and run ```kubectl apply -f .```
+1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
+2) Rebuild the docker images so now minikube sees them ```docker-compose build```
+3) Navigate to ```k8s``` folder and run ```kubectl delete -f .;kubectl apply -f .```
 4) Create a tunnel to load balancer with minikube: ```minikube service lb-backend``` or ```minikube tunnel lb-backend```
 5) Follow generate tunnel URI with to see backend container
 
