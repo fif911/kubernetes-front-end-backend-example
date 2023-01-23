@@ -34,10 +34,6 @@ class Settings(BaseSettings):
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
-        print(f"POSTGRES_USER {values.get('POSTGRES_USER')}")
-        print(f"POSTGRES_PASSWORD {values.get('POSTGRES_PASSWORD')}")
-        print(f"POSTGRES_SERVER {values.get('POSTGRES_SERVER')}")
-        print(f"POSTGRES_DB {values.get('POSTGRES_DB')}")
 
         if isinstance(v, str):
             return v

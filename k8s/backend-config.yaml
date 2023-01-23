@@ -8,4 +8,3 @@ data:
   BACKEND_CORS_ORIGINS: '["http://localhost"]'
   PROJECT_NAME: k8app
   POSTGRES_SERVER: postgres-service
-  POSTGRES_PASSWORD: "superdupercomplexpassword"
