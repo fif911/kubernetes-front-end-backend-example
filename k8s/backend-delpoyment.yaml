@@ -17,7 +17,7 @@ spec:
         app: backend
     spec:
       containers:
-        - name: backend-fastapi-container
+        - name: backend-container
           image: k8app-backend-image:1.1
           imagePullPolicy: Never # get image locally. for imagePullPolicy: Never the images need to be on the minikube node.
           ports:
@@ -29,4 +29,3 @@ spec:
                 name: postgres-config # populate db-specific values (needed to keep one source of truth)
             - secretRef:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
-# TODO: fix this issue. Maybe its because of improper decoding of password (There is an redundant \n in prints)
