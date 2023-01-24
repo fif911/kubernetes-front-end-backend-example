@@ -22,10 +22,8 @@ class TodoContainer extends React.Component {
     }
 
     componentDidMount() {
-        let fetch_result = fetch(base_url);
-        console.log("Fetch result: ");
-        console.log(fetch_result);
-        fetch_result.then(response => response.json())
+        fetch(base_url)
+            .then(response => response.json())
             .then(data => this.setState({todos: data})).catch(console.error);
     }
 
@@ -44,7 +42,7 @@ class TodoContainer extends React.Component {
                         checked: c_todo.checked,
                     }))
                     // Update checked parameter
-                    fetch(base_url + "/" + todo.id, {
+                    fetch(base_url + todo.id, {
                         method: "PUT", body: JSON.stringify({
                             checked: c_todo.checked,
                         }) // TODO: ????
@@ -59,7 +57,7 @@ class TodoContainer extends React.Component {
 
     delTodo = id => {
         console.log("deleted", id);
-        fetch(base_url + "/" + id, {
+        fetch(base_url + id, {
             method: "DELETE"
         }).then(response => response.json()).catch(console.error);
 

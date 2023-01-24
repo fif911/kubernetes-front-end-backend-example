@@ -13,7 +13,7 @@ router = APIRouter()
 
 @router.get("/", response_model=List[schemas.Item])
 def read_items(
-        db: Session = Depends(deps.get_db),        
+        db: Session = Depends(deps.get_db),
 ) -> Any:
     """
     Retrieve items.
