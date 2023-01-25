@@ -4,8 +4,12 @@ import Header from "./Header"
 import InputTodo from "./InputTodo"
 
 let base_url = window._env_.REACT_APP_BACKEND_BASE_URI
+base_url = window.location.protocol + "//" + base_url
+if (!(base_url.endsWith("/"))){
+    base_url = base_url + "/";
+}
 console.log("Backend API URI: ")
-console.log(window._env_.REACT_APP_BACKEND_BASE_URI)
+console.log(base_url)
 
 class TodoContainer extends React.Component {
 
@@ -38,7 +42,7 @@ class TodoContainer extends React.Component {
                         checked: c_todo.checked,
                     }))
                     // Update checked parameter
-                    fetch(base_url + "/" + todo.id, {
+                    fetch(base_url + todo.id, {
                         method: "PUT", body: JSON.stringify({
                             checked: c_todo.checked,
                         }) // TODO: ????
@@ -53,7 +57,7 @@ class TodoContainer extends React.Component {
 
     delTodo = id => {
         console.log("deleted", id);
-        fetch(base_url + "/" + id, {
+        fetch(base_url + id, {
             method: "DELETE"
         }).then(response => response.json()).catch(console.error);
 

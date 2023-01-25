@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8app-ingress
+  # annotations:
+  #   nginx.ingress.kubernetes.io/use-regex: "true"
+  #   nginx.ingress.kubernetes.io/rewrite-target: /backend/$2
+spec:
+  tls:
+  - hosts:
+    - k8app.com
+    - backend.k8app.com
+    secretName: k8app-tls-secret
+  rules:
+  - host: backend.k8app.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8app-backend
+            port:
+              number: 3000
+  - host: k8app.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: k8app-frontend
+            port:
+              number: 3001
