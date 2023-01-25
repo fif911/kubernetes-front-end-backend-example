@@ -4,6 +4,8 @@ This is a **TodoList application** which has **backend, frontend and database**.
 
 ## How to run:
 
+### Docker
+
 1) Go inside k8app folder
 2) Run ```docker-compose up```
 3) Navigate to **frontend** http://localhost:5000/
@@ -12,7 +14,14 @@ This is a **TodoList application** which has **backend, frontend and database**.
 5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
    stored in it
 
-## Local deployment with kubernetes (macos)
+
+### Kubernetes
+
+For learning purposes each of the team members created his own kubernetes YAML files that can be found in corresponding
+branches
+
+#### k8s-specs folder
+
 Requirements:
 - [Minikube](https://minikube.sigs.k8s.io/docs/start/)
   
@@ -37,6 +46,16 @@ Expose the services to the host, open the url in the port provided by the comman
 ```bash
 minikube service k8app-backend --url
 ```
+
+
+#### k8s folder
+
+1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
+2) Rebuild the docker images so now minikube sees them ```docker-compose build```
+3) Navigate to ```k8s``` folder and run ```kubectl delete -f .;kubectl apply -f .```
+4) Create a tunnel to load balancer with minikube: ```minikube service lb-backend``` or ```minikube tunnel lb-backend```
+5) Follow generate tunnel URI with to see backend container
+
 
 ## Tech stack
 
