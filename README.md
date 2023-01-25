@@ -57,6 +57,14 @@ minikube service k8app-backend --url
 5) Follow generate tunnel URI with to see backend container
 
 
+#### Google Cloud
+
+To set up dependencies - consult this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
+```bash
+# Connect kubectl to google cloud
+gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1
+```
+
 ## Tech stack
 
 ### Backend
