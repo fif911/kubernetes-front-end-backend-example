@@ -1,0 +1,6 @@
+developer
+    can fully manage configmaps, services, pods, and secrets in the default namepsace
+devops
+    can fully manage ingress, deployments, cert-manager, replicaset, and secrets in the default namepsace
+security
+    can fully manage configmaps and secrets in all namespaces
