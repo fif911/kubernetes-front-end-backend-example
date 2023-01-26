@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k8app-certificate
+spec:
+  secretName: k8app-tls-secret
+  privateKey:
+    rotationPolicy: Always
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  duration: 8760h # 1 Year
+  renewBefore: 2208h #9 months
+  subject:
+    organizations:
+      - VU k8app
+  commonName: '*.k8app.com'
+  isCA: false
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - k8app.com
+    - backend.k8app.com
+  issuerRef:
+    name: internal-ca-issuer
+    kind: ClusterIssuer
