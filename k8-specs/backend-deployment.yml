@@ -12,11 +12,15 @@ spec:
         app: k8app-backend
     spec:
       containers:
-      - name: k8app-backend
+      - name: k8app-backend-container
         image: nader2929/sc_course:k8app-backend-image
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-        envFrom:
+          envFrom:
             - configMapRef:
-                name: k8app-backend-secret
+                name: k8app-backend-config
+            - configMapRef:
+                name: postgres-config # populate db-specific values (needed to keep one source of truth)
+            - secretRef:
+                name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)

@@ -17,9 +17,14 @@ spec:
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           envFrom:
             - configMapRef:
-                name: postgres-secret # Using the ConfigMap postgres-secret
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdata
