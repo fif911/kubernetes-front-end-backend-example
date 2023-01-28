@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: k8app-frontend-image:1.1
+          image: k8app-frontend-image:1.2
           imagePullPolicy: Never # get image locally. for 'imagePullPolicy: Never' the images need to be on the minikube node.
           ports:
             - containerPort: 80

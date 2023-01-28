@@ -5,6 +5,6 @@ metadata:
   labels:
     app: backend
 data:
-  BACKEND_CORS_ORIGINS: '["http://localhost"]'
+#  BACKEND_CORS_ORIGINS: '["localhost"]'
   PROJECT_NAME: k8app
   POSTGRES_SERVER: postgres-service
