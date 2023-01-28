@@ -5,8 +5,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "gce"
 spec:
+  ingressClassName: nginx
   rules:
-  - host: backend.k8app.com
+  - host: backend.k8s.codes
     http:
       paths:
       - pathType: Prefix
