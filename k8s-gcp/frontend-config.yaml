@@ -5,4 +5,4 @@ metadata:
   labels:
     app: frontend
 data:
-  REACT_APP_BACKEND_BASE_URI: lb-backend
+  REACT_APP_BACKEND_BASE_URI: backend.k8s.codes/api/items
