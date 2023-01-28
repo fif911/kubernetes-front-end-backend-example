@@ -71,6 +71,11 @@ To set up dependencies - consult
 this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
 
 ```bash
+
+gcloud auth login {username} 
+
+gcloud auth list 
+
 # Connect kubectl to google cloud
 gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1
 ```
