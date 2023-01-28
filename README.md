@@ -19,7 +19,7 @@ This is a **TodoList application** which has **backend, frontend and database**.
 For learning purposes each of the team members created his own kubernetes YAML files that can be found in corresponding
 branches
 
-#### k8s-specs folder
+#### Microk8s (k8s-specs) folder
 
 Requirements:
 
@@ -64,6 +64,8 @@ minikube service k8app-backend --url
 5) Follow generate tunnel URI with to see backend container
 
 #### Google Cloud
+
+`k8s-gcp` contains YAML (maybe HELM) files for GCP.
 
 To set up dependencies - consult
 this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
