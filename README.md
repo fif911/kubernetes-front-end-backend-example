@@ -72,6 +72,9 @@ this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-acce
 
 ```bash
 
+# build FE with linux/amd64 architecture
+docker buildx build frontend -f frontend/frontend.dockerfile -t kotonium/k8app-frontend-image:1.2 --platform=linux/amd64
+
 gcloud auth login {username} 
 
 gcloud auth list 
