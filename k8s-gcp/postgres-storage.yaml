@@ -26,4 +26,4 @@ spec:
     - ReadWriteOnce  # Sets read and write access
   resources:
     requests:
-      storage: 5Gi  # Sets volume size
+      storage: 2Gi  # Sets volume size
