@@ -2,6 +2,11 @@
 
 This is a **TodoList application** which has **backend, frontend and database**.
 
+**Running website in Google Cloud can be found here**:
+
+* [Frontend](http://www.k8s.codes/)
+* [Backend](http://backend.k8s.codes/)
+
 ## How to run:
 
 ### Docker
