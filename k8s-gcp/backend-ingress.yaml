@@ -5,6 +5,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "gce"
 spec:
+  tls:
+    - hosts:
+        - 'backend.k8s.codes'
+        - www.backend.k8s.codes
+      secretName: k8s-codes-tls-secret
   ingressClassName: nginx
   rules:
   - host: backend.k8s.codes
