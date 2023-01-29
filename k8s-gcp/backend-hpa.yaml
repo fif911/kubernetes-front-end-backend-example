@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: acg-hpa
+  name: backend-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

@@ -4,6 +4,8 @@ metadata:
   name: lb-frontend
   labels:
     app: frontend
+  annotations:
+    cloud.google.com/app-protocols: '{"https":"HTTPS","http":"HTTP"}'  # HTTPS (TLS) between load balancer and application
 spec:
   type: LoadBalancer
   ports:
