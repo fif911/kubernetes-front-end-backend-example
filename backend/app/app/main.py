@@ -20,7 +20,6 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 
-@app.get("/", response_class=HTMLResponse)
 def main_page_welcome():
     return """
     <html>
@@ -29,9 +28,10 @@ def main_page_welcome():
         </head>
         <body>
             <h1>Hello. This is main page of back-end</h1>
+            <p>You can find sources in the <a href="https://github.com/fif911/k8app">GitHub repo</a></p>
             <p><a href="./docs">See interactive documentation here</a></p>
             <p>API to play with is /items: 
-            
+
             You can list, create and delete items:
             <ul>
             <li><a href="./api/items/">List all items</a> with  GET /items
@@ -42,6 +42,16 @@ def main_page_welcome():
         </body>
     </html>
     """
+
+
+@app.get("/", response_class=HTMLResponse)
+def root_endpoint():
+    return main_page_welcome()
+
+
+@app.get(settings.API_V1_STR, response_class=HTMLResponse)
+def root_api_endpoint():
+    return main_page_welcome()
 
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
