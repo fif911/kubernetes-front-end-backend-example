@@ -10,6 +10,7 @@ spec:
     metadata:
       labels:
         app: k8app-frontend
+        role: frontend
     spec:
       containers:
         - name: k8app-frontend
