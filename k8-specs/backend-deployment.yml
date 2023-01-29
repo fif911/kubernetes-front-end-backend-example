@@ -14,23 +14,13 @@ spec:
       containers:
       - name: k8app-backend
         image: dangg/k8app-backend-image
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
-        envFrom:
-          - configMapRef:
-              name: k8app-backend-config
-        # env:
-        #   - name: SECRET_KEY
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: k8app-backend-secret
-        #         key: SECRET_KEY
-        #   - name: POSTGRES_PASSWORD
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: k8app-backend-secret
-        #         key: POSTGRES_PASSWORD
-
-          
-          
+          envFrom:
+            - configMapRef:
+                name: k8app-backend-config
+            - configMapRef:
+                name: postgres-config # populate db-specific values (needed to keep one source of truth)
+            - secretRef:
+                name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)

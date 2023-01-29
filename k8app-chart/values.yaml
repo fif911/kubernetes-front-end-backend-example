@@ -53,4 +53,4 @@ backendConfig:
   serverName: server
 
 frontendConfig:
-  reactAppBackendBaseUri: http://localhost:3000
+  reactAppBackendBaseUri: http://localhost:3000/api/items

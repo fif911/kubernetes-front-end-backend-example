@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment # Create a deployment
+kind: Deployment
 metadata:
-  name: postgres # Set the name of the deployment
+  name: postgres  # Sets Deployment name
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -13,10 +14,10 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:12 # Docker image
+          image: postgres:15 # Sets Image
           imagePullPolicy: "IfNotPresent"
           ports:
-            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+            - containerPort: 5432  # Exposes container port
           env:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -27,8 +28,8 @@ spec:
                 name: postgres-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgresdata
+              name: postgredb
       volumes:
-        - name: postgresdata
+        - name: postgredb
           persistentVolumeClaim:
-            claimName: postgres-volume-claim
+            claimName: postgres-pv-claim

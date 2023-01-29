@@ -7,10 +7,6 @@ metadata:
 data:
   SERVER_NAME: server
   SERVER_HOST: http://localhost
-  BACKEND_CORS_ORIGINS: '["http://localhost:3001"]'
+  BACKEND_CORS_ORIGINS: '["http://localhost", "http://k8app.com", "http://k8app.com:80", "http://k8app.com:3001", "https://localhost", "https://k8app.com", "https://k8app.com:443", "https://k8app.com:4001"]'
   PROJECT_NAME: k8app
-  SECRET_KEY: 99d3b1f01aa639e4a76f4fc281fc834747a543720ba4c8a8648ba755aef9be7f
   POSTGRES_SERVER: postgres
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: pass
-  POSTGRES_DB: app

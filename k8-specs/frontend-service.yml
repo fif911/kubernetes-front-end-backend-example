@@ -7,7 +7,9 @@ spec:
   selector:
     app: k8app-frontend
   ports:
-  - protocol: TCP
-    nodePort: 30001
-    port: 3001
+  - port: 3001
+    name: http    
     targetPort: 80
+  - port: 4001
+    name: https
+    targetPort: 443
