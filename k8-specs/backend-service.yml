@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: k8app-backend
 spec:
+  type: LoadBalancer
   selector:
     app: k8app-backend
   ports:
@@ -12,4 +13,3 @@ spec:
   - port: 4000
     name: https
     targetPort: 443
-  type: LoadBalancer

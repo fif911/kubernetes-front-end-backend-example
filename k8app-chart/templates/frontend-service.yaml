@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-frontend
+  labels:
+  {{- include "k8app-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.frontend.type }}
+  selector:
+    app: k8app-frontend
+  {{- include "k8app-chart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.frontend.ports | toYaml | nindent 2 -}}
