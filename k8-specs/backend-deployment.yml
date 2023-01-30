@@ -12,8 +12,8 @@ spec:
         app: k8app-backend
     spec:
       containers:
-      - name: k8app-backend-container
-        image: nader2929/sc_course:k8app-backend-image
+      - name: k8app-backend
+        image: dangg/k8app-backend-image
         imagePullPolicy: Always
         ports:
         - containerPort: 80

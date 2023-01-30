@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: k8app-frontend
 spec:
+  type: LoadBalancer
   selector:
     app: k8app-frontend
   ports:
@@ -12,4 +13,3 @@ spec:
   - port: 4001
     name: https
     targetPort: 443
-  type: LoadBalancer
