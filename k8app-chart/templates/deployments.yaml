@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-postgres
+  labels:
+  {{- include "k8app-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+    {{- include "k8app-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: postgres
+        role: db
+      {{- include "k8app-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: {{ include "k8app-chart.fullname" . }}-postgres-secret
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "k8app-chart.fullname" . }}-postgres-config
+        image: {{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        name: postgres
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresdata
+      volumes:
+      - name: postgresdata
+        persistentVolumeClaim:
+          claimName: {{ include "k8app-chart.fullname" . }}-postgres-volume-claim
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-backend
+  labels:
+  {{- include "k8app-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: k8app-backend
+    {{- include "k8app-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: k8app-backend
+        role: backend
+      {{- include "k8app-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "k8app-chart.fullname" . }}-backend-config
+        image: {{ .Values.backend.image.name }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: Always
+        name: k8app-backend
+        ports:
+        - containerPort: 80
+        resources: {}
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-frontend
+  labels:
+  {{- include "k8app-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: k8app-frontend
+    {{- include "k8app-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: k8app-frontend
+      {{- include "k8app-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "k8app-chart.fullname" . }}-frontend-config
+        image: {{ .Values.frontend.image.name }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: Always
+        name: k8app-frontend
+        ports:
+        - containerPort: 80
+        resources: {}

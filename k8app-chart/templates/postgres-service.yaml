@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-postgres
+  labels:
+    app: postgres
+  {{- include "k8app-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.postgres.type }}
+  selector:
+    app: postgres
+  {{- include "k8app-chart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.postgres.ports | toYaml | nindent 2 -}}

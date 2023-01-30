@@ -1,0 +1,60 @@
+kubernetesClusterDomain: cluster.local
+postgres:
+  image:
+    name: postgres
+    tag: "12"
+  ports:
+  - port: 5432
+  type: NodePort
+
+backend:
+  image:
+    name: dangg/k8app-backend-image
+    tag: latest
+  ports:
+  - port: 3000
+    name: http
+    targetPort: 80
+  - port: 4000
+    name: https
+    targetPort: 443
+  type: LoadBalancer
+
+frontend:
+  image:
+    name: dangg/k8app-frontend-image
+    tag: latest
+  ports:
+  - port: 3001
+    name: http    
+    targetPort: 80
+  - port: 4001
+    name: https
+    targetPort: 443
+  type: LoadBalancer
+
+postgresConfig:
+  postgresDb: app
+  postgresUser: postgres
+
+postgresSecret:
+  postgresPassword: "pass"
+
+pvc:
+  postgresVolumeClaim:
+    storageClass: manual
+    storageRequest: 10Gi
+
+backendConfig:
+  backendCorsOrigins: '["http://localhost", "http://k8app.com", "http://k8app.com:80", "http://k8app.com:3001", "https://localhost", "https://k8app.com", "https://k8app.com:443", "https://k8app.com:4001"]'
+  postgresDb: app
+  postgresPassword: pass
+  postgresServer: k8app-postgres
+  postgresUser: postgres
+  projectName: k8app
+  secretKey: 99d3b1f01aa639e4a76f4fc281fc834747a543720ba4c8a8648ba755aef9be7f
+  serverHost: http://localhost
+  serverName: server
+
+frontendConfig:
+  reactAppBackendBaseUri: https://backend.k8app.com/api/items
