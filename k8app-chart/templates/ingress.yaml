@@ -8,7 +8,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "https://k8app.com, http://k8app.com, http://*.k8app.com, https://k8app.com, http://localhost, http://k8app.com, http://k8app.com:80, http://k8app.com:3001, https://localhost, https://k8app.com, https://k8app.com:443, https://k8app.com:4001"
-    cert-manager.io/cluster-issuer: internal-ca-issuer
+    cert-manager.io/cluster-issuer: {{ include "k8app-chart.fullname" . }}-internal-ca-issuer
     kubernetes.io/tls-acme: "false"
 spec:
   tls:
@@ -16,7 +16,7 @@ spec:
     - '*.k8app.com'
     - k8app.com
     - backend.k8app.com
-    secretName: k8app-tls-secret
+    secretName: {{ include "k8app-chart.fullname" . }}-tls-secret
   rules:
   - host: backend.k8app.com
     http:

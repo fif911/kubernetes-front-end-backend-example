@@ -1,9 +1,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: k8app-certificate
+  name: {{ include "k8app-chart.fullname" . }}-k8app-certificate
 spec:
-  secretName: k8app-tls-secret
+  secretName: {{ include "k8app-chart.fullname" . }}-tls-secret
   privateKey:
     rotationPolicy: Always
     algorithm: RSA
@@ -23,5 +23,5 @@ spec:
     - k8app.com
     - backend.k8app.com
   issuerRef:
-    name: internal-ca-issuer
+    name: {{ include "k8app-chart.fullname" . }}-internal-ca-issuer
     kind: ClusterIssuer
