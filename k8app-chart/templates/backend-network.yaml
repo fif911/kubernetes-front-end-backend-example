@@ -6,11 +6,4 @@ spec:
   podSelector:
     matchLabels:
       role: backend
-  policyTypes:
-    - Ingress
-  ingress:
-    - ports:
-        - protocol: TCP
-          port: 80
-        - protocol: TCP
-          port: 443
+{{- .Values.websiteNetworkPolicyIngress | toYaml | nindent 2 -}}

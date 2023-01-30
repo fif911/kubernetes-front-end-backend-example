@@ -6,22 +6,4 @@ spec:
   podSelector:
     matchLabels:
       role: db
-  policyTypes:
-    - Ingress
-    - Egress
-  ingress:
-    - from:
-      - podSelector:
-          matchLabels:
-            role: backend
-      ports:
-        - protocol: TCP
-          port: 5432
-  egress:
-    - to:
-      - podSelector:
-          matchLabels:
-            role: backend
-      ports:
-        - protocol: TCP
-          port: 5432
+{{- .Values.postgresNetworkPolicy | toYaml | nindent 2 -}}

@@ -58,3 +58,34 @@ backendConfig:
 
 frontendConfig:
   reactAppBackendBaseUri: https://backend.k8app.com/api/items
+
+websiteNetworkPolicyIngress:
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+
+postgresNetworkPolicy:
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            role: backend
+      ports:
+        - protocol: TCP
+          port: 5432
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            role: backend
+      ports:
+        - protocol: TCP
+          port: 5432
