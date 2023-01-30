@@ -26,6 +26,11 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
+          resources:
+            limits:
+              cpu: 0.25
+            requests:
+              cpu: 0.25 # it is fine if single DB uses the whole limit
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb

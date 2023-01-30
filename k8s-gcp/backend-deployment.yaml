@@ -31,6 +31,6 @@ spec:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
           resources:
             limits:
-              cpu: 1
+              cpu: 0.5
             requests:
-              cpu: 0.25 # gives 25% of CPU for each pod
+              cpu: 0.25 # gives 1/2 of the limit
