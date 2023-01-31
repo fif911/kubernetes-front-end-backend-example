@@ -20,12 +20,17 @@ spec:
             - containerPort: 5432  # Exposes container port
           env:
             - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata # It just ignores my env variables !!!
+              value: /var/lib/postgresql/data/pgdata
           envFrom:
             - configMapRef:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
+          resources:
+            limits:
+              cpu: 0.25
+            requests:
+              cpu: 0.25 # it is fine if single DB uses the whole limit
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb

@@ -5,12 +5,12 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 2
+  replicas: 2 # One pod will be killed when there is no load by HPA
   selector:
     matchLabels:
       app: backend
   strategy:
-    type: Recreate
+    type: Recreate # All existing Pods are killed before new ones are created
   template:
     metadata:
       labels:
@@ -18,8 +18,8 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: k8app-backend-image:1.1
-          imagePullPolicy: Never # get image locally. for imagePullPolicy: Never the images need to be on the minikube node.
+          image: kotonium/k8app-backend-image:1.2
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 80
           envFrom:
@@ -29,3 +29,8 @@ spec:
                 name: postgres-config # populate db-specific values (needed to keep one source of truth)
             - secretRef:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
+          resources:
+            limits:
+              cpu: 0.5
+            requests:
+              cpu: 0.25 # gives 1/2 of the limit

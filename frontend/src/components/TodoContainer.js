@@ -4,9 +4,13 @@ import Header from "./Header"
 import InputTodo from "./InputTodo"
 
 let base_url = window._env_.REACT_APP_BACKEND_BASE_URI
-base_url = window.location.protocol + "//" + base_url
+console.log("Original base_url URI: ")
+console.log(base_url)
 if (!(base_url.endsWith("/"))){
     base_url = base_url + "/";
+}
+if (!base_url.startsWith('http')){
+    base_url = window.location.protocol + "//" + base_url
 }
 console.log("Backend API URI: ")
 console.log(base_url)
