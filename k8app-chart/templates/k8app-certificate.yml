@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ include "k8app-chart.fullname" . }}-k8app-certificate
+  name: {{ include "k8app-chart.fullname" . }}-certificate
 spec:
   secretName: {{ include "k8app-chart.fullname" . }}-tls-secret
   privateKey:
