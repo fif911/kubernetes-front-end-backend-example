@@ -1,6 +1,6 @@
-# Simple containerized application
+# Simple containerized application with Kubernetes.
 
-This is a **TodoList application** which has **backend, frontend and database**.
+This is a **TodoList application** which has **backend, frontend and database** deployed using Kubernetes.
 
 **Running website in Google Cloud can be found here**:
 
@@ -9,54 +9,31 @@ This is a **TodoList application** which has **backend, frontend and database**.
 
 ## How to run:
 
-### Docker
+### Docker Compose:
 
 1) Go inside k8app folder
 2) Run ```docker-compose up```
 3) Navigate to **frontend** http://localhost:5000/
 3) Navigate to **backend** http://localhost:8080/
 4) Check out main page and visit http://localhost:8080/docs to play with API
-5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
-   stored in it
+5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data stored on it.
 
-### Kubernetes
+## Kubernetes
 
-For learning purposes each of the team members created his own kubernetes YAML files that can be found in corresponding
-branches
+### Architecture
+![](docs/architecture.png)
 
-#### Microk8s (k8s-specs) folder
+This section provides information on the location and purpose of Kubernetes-related files.
 
-Requirements:
+### `k8-specs/` folder
+The `k8-specs/` folder contains artifacts for creating Kubernetes objects using the command kubectl apply -f k8-specs. It is important to note that Minikube in macOS does not currently support DNS resolution, so it is strongly recommended to use Microk8s instead.
 
-- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+### `k8app-charts/` folder
+The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
 
-Start minikube
-
-```bash
-minikube start
-```
-
-Build image in minikube docker environment
-
-```bash
-eval $(minikube docker-env)
-
-docker buildx build backend/ --platform=linux/amd64 -t k8app-backend-image:1.1
-```
-
-Run kubernetes specs
-
-```bash
-kubectl apply -f k8-specs
-```
-
-Expose the services to the host, open the url in the port provided by the command. Example http://127.0.0.1:55453
-
-```bash
-minikube service k8app-backend --url
-```
-
-#### k8s folder
+### `k8s-gcp/` folder
+The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the deployment process on GCP and ensure proper configuration of your Kubernetes objects.
+## Setup using Minikube 
 
 1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
 2) Rebuild the docker images so now minikube sees them ```docker-compose build```
@@ -70,7 +47,7 @@ minikube service k8app-backend --url
 
 #### Google Cloud
 
-`k8s-gcp` contains YAML (maybe HELM) files for GCP.
+`k8s-gcp` contains YAML files for GCP.
 
 To set up dependencies - consult
 this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
@@ -106,6 +83,4 @@ Postgres is used as primary data store. Credentials can be found in .env file.
 
 See detailed docs on ```backend``` and ```frontend``` in corresponding folders.
 
-TODO
 
-- Seems like when you delete something from the frontend it still exists in the database 
