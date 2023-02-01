@@ -10,3 +10,4 @@ data:
   BACKEND_CORS_ORIGINS: '["http://localhost", "http://k8app.com", "http://k8app.com:80", "http://k8app.com:3001", "https://localhost", "https://k8app.com", "https://k8app.com:443", "https://k8app.com:4001"]'
   PROJECT_NAME: k8app
   POSTGRES_SERVER: postgres
+  SECRET_KEY: 99d3b1f01aa639e4a76f4fc281fc834747a543720ba4c8a8648ba755aef9be7f

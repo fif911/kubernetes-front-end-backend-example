@@ -3,9 +3,12 @@ kind: Deployment
 metadata:
   name: k8app-backend
 spec:
+  replicas: 2 # One pod will be killed when there is no load by HPA
   selector:
     matchLabels:
       app: k8app-backend
+  strategy:
+    type: Recreate # All existing Pods are killed before new ones are created
   template:
     metadata:
       labels:
@@ -13,11 +16,11 @@ spec:
         role: backend
     spec:
       containers:
-      - name: k8app-backend
-        image: dangg/k8app-backend-image
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
+        - name: k8app-backend
+          image: dangg/k8app-backend-image
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
           envFrom:
             - configMapRef:
                 name: k8app-backend-config
@@ -25,3 +28,8 @@ spec:
                 name: postgres-config # populate db-specific values (needed to keep one source of truth)
             - secretRef:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
+          resources:
+            limits:
+              cpu: 0.5
+            requests:
+              cpu: 0.25 # gives 1/2 of the limit
