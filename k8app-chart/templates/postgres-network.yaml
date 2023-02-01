@@ -1,0 +1,9 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-postgres-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+{{- .Values.postgresNetworkPolicy | toYaml | nindent 2 -}}

@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: postgres
+        role: db
       {{- include "k8app-chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
@@ -27,8 +28,7 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ include "k8app-chart.fullname" . }}-postgres-config
-        image: {{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag
-          | default .Chart.AppVersion }}
+        image: {{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: IfNotPresent
         name: postgres
         ports:
@@ -57,6 +57,7 @@ spec:
     metadata:
       labels:
         app: k8app-backend
+        role: backend
       {{- include "k8app-chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
@@ -66,9 +67,8 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ include "k8app-chart.fullname" . }}-backend-config
-        image: {{ .Values.backend.image.name }}:{{ .Values.backend.image.tag
-          | default .Chart.AppVersion }}
-        imagePullPolicy: IfNotPresent
+        image: {{ .Values.backend.image.name }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: Always
         name: k8app-backend
         ports:
         - containerPort: 80
@@ -99,9 +99,8 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ include "k8app-chart.fullname" . }}-frontend-config
-        image: {{ .Values.frontend.image.name }}:{{ .Values.frontend.image.tag
-          | default .Chart.AppVersion }}
-        imagePullPolicy: IfNotPresent
+        image: {{ .Values.frontend.image.name }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: Always
         name: k8app-frontend
         ports:
         - containerPort: 80

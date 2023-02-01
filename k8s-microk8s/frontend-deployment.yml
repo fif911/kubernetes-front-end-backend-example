@@ -3,13 +3,17 @@ kind: Deployment
 metadata:
   name: k8app-frontend
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: k8app-frontend
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: k8app-frontend
+        role: frontend
     spec:
       containers:
         - name: k8app-frontend
@@ -20,3 +24,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: k8app-frontend-config
+          resources:
+            limits:
+              cpu: 0.5
+            requests:
+              cpu: 0.25 # gives 1/2 of the limit

@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: devops-role
+  namespace: default
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["ingress", "deployments", "cert-managers", "replicaset", "secrets"]
+  verbs: ["get", "watch", "list", "update", "create", "patch", "delete"]

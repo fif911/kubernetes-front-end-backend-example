@@ -1,0 +1,9 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ include "k8app-chart.fullname" . }}-frontend-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend
+{{- .Values.websiteNetworkPolicyIngress | toYaml | nindent 2 -}}
