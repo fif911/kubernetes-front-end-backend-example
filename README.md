@@ -45,6 +45,20 @@ The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platf
 4) Create a tunnel to load balancer with minikube: ```minikube service lb-backend``` or ```minikube tunnel lb-backend```
 5) Follow generate tunnel URI with to see backend container
 
+### How to make a rollout
+- Make a change in your deployment file (Change the image tag or the limits)
+- Create configmaps.
+- Execute `kubectl apply -f [FILE_NAME]`
+- Validate rollout satus with `kubectl rollout status deployment/[DEPLOYMEN_TNAME]`
+- Get rollout history with `kubectl rollout history deployment/[DEPLOYMENT_NAME]`
+- Go back to a specific revosion `kubectl rollout undo deployment/[DEPLOYMENT_NAME] --to-revision=1`
+
+### How to make a canary deployment
+- Execute `kubectl apply -f k8s-microk8s/frontend-deployment-canary-v1.yml`
+- Execute `kubectl apply -f k8s-microk8s/frontend-deployment-canary-v2.yml`
+- Scale down v1 `kubectl scale --replicas=9 k8app-frontend-v1`
+- Delete deployment v1 `kubectl delete -f k8s-microk8s/frontend-deployment-canary-v1.yml`
+
 #### Google Cloud
 
 `k8s-gcp` contains YAML files for GCP.
