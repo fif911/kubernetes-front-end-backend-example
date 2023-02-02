@@ -5,7 +5,7 @@ This is a **TodoList application** which has **backend, frontend and database** 
 **Running website in Google Cloud can be found here**:
 
 * [Frontend](http://www.k8s.codes/)
-* [Backend](http://backend.k8s.codes/)
+* [Backend](http://k8s.codes/api)
 
 ## How to run:
 
@@ -16,24 +16,34 @@ This is a **TodoList application** which has **backend, frontend and database** 
 3) Navigate to **frontend** http://localhost:5000/
 3) Navigate to **backend** http://localhost:8080/
 4) Check out main page and visit http://localhost:8080/docs to play with API
-5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data stored on it.
+5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
+   stored on it.
 
 ## Kubernetes
 
 ### Architecture
+
 ![](docs/architecture.png)
 
 This section provides information on the location and purpose of Kubernetes-related files.
 
 ### `k8-specs/` folder
-The `k8-specs/` folder contains artifacts for creating Kubernetes objects using the command kubectl apply -f k8-specs. It is important to note that Minikube in macOS does not currently support DNS resolution, so it is strongly recommended to use Microk8s instead.
+
+The `k8-specs/` folder contains artifacts for creating Kubernetes objects using the command kubectl apply -f k8-specs.
+It is important to note that Minikube in macOS does not currently support DNS resolution, so it is strongly recommended
+to use Microk8s instead.
 
 ### `k8app-charts/` folder
-The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
+
+The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install
+k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
 
 ### `k8s-gcp/` folder
-The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the deployment process on GCP and ensure proper configuration of your Kubernetes objects.
-## Setup using Minikube 
+
+The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the
+deployment process on GCP and ensure proper configuration of your Kubernetes objects.
+
+## Setup using Minikube
 
 1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
 2) Rebuild the docker images so now minikube sees them ```docker-compose build```
@@ -46,6 +56,7 @@ The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platf
 5) Follow generate tunnel URI with to see backend container
 
 ### How to make a rollout
+
 - Make a change in your deployment file (Change the image tag or the limits)
 - Create configmaps.
 - Execute `kubectl apply -f [FILE_NAME]`
@@ -54,6 +65,7 @@ The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platf
 - Go back to a specific revosion `kubectl rollout undo deployment/[DEPLOYMENT_NAME] --to-revision=1`
 
 ### How to make a canary deployment
+
 - Execute `kubectl apply -f k8s-microk8s/frontend-deployment-canary-v1.yml`
 - Execute `kubectl apply -f k8s-microk8s/frontend-deployment-canary-v2.yml`
 - Scale down v1 `kubectl scale --replicas=9 k8app-frontend-v1`
