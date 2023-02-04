@@ -3,10 +3,11 @@
 This is a **TodoList application** which has **backend, frontend and database** deployed using Kubernetes.
 
 As it is easier for TA to deploy application in microk8s, but we also wanted our application to be accessible in the
-public internet - **we created 2 versions of the application**:
+public internet - **we created 2 versions of the application**, in addition to the helm chart for our application:
 
 1) Microk8s version located in `k8s-microk8s` folder
 2) And Google Cloud Platform (GCP) version located in `k8s-gcp` folder
+3) Helm chart in `k8s-chart` folder
 
 **You can find running website in Google Cloud Platform using links below**:
 
