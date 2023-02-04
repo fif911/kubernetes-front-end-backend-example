@@ -57,6 +57,7 @@ k8app ./k8app-chart. These artifacts will help to streamline the deployment proc
 4) Enable ingress: ```microk8s enable ingress```
 5) Enable ha-cluster: ```microk8s enable ha-cluster```
 6) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .;microk8s kubectl apply -f .```
+7) Follow https://k8app.com for frontend and https://backend.k8app.com for backend
 
 ## Setup using Minikube
 
@@ -87,7 +88,7 @@ k8app ./k8app-chart. These artifacts will help to streamline the deployment proc
 - Scale down v1 `kubectl scale --replicas=9 k8app-frontend-v1`
 - Delete deployment v1 `kubectl delete -f k8s-microk8s/frontend-deployment-canary-v1.yml`
 
-#### Google Cloud
+## Setup using Google Cloud
 
 `k8s-gcp` contains YAML files that are GCP used for GCP deployment.
 `k8s-gcp-chart` contains Helm charts that can be used to deploy on GCP.
@@ -115,10 +116,6 @@ sure it is properly build.
 6) You are done. Follow the Frontend and Backend links and see them in action!
 
 ## Docker:
-
-### Docker Images
-
-We have 2 images.
 
 ### Docker Compose:
 
