@@ -18,6 +18,7 @@ spec:
     metadata:
       labels:
         app: frontend
+        role: frontend
     spec:
       containers:
         - name: frontend-container

@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: postgres
+        role: db
     spec:
       containers:
         - name: postgres
@@ -28,9 +29,9 @@ spec:
                 name: postgres-secret
           resources:
             limits:
-              cpu: 0.25
+              cpu: "0.25"
             requests:
-              cpu: 0.25 # it is fine if single DB uses the whole limit
+              cpu: "0.25" # it is fine if single DB uses the whole limit
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb

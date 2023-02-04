@@ -18,6 +18,7 @@ spec:
     metadata:
       labels:
         app: backend
+        role: backend
     spec:
       containers:
         - name: backend-container
