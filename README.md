@@ -11,7 +11,7 @@ public internet - **we created 2 versions of the application**, in addition to t
 
 **You can find running website in Google Cloud Platform using links below**:
 
-* Frontend: http://www.k8s.codes/ 
+* Frontend: http://www.k8s.codes/
 * Backend: http://www.k8s.codes/api
 
 As we don't have wildcard SSL certificate, for GCP version we set an Ingress prefix for our Backend on `/api` path. For
@@ -27,7 +27,18 @@ While following `HTTP` links mentioned above notice automatic redirects to `HTTP
 
 This section provides information on the location and purpose of Kubernetes-related files.
 
-### `k8-specs/` folder
+### `k8s-gcp/` folder
+
+The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the
+deployment process on GCP and ensure proper configuration of your Kubernetes objects. These are the files that were
+presented in the Team Presentation.
+
+### `k8s-gcp-chart/` folder
+
+The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install
+k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
+
+### `k8-microk8s/` folder
 
 The `k8-specs/` folder contains artifacts for creating Kubernetes objects using the command kubectl apply -f k8-specs.
 It is important to note that Minikube in macOS does not currently support DNS resolution, so it is strongly recommended
@@ -38,11 +49,6 @@ to use Microk8s instead.
 The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install
 k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
 
-### `k8s-gcp/` folder
-
-The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the
-deployment process on GCP and ensure proper configuration of your Kubernetes objects.
-
 ## Setup using microk8s
 
 1) Start microk8s: ```microk8s start```
@@ -50,19 +56,20 @@ deployment process on GCP and ensure proper configuration of your Kubernetes obj
 3) Enable cert-manager: ```microk8s enable cert-manager```
 4) Enable ingress: ```microk8s enable ingress```
 5) Enable ha-cluster: ```microk8s enable ha-cluster```
-3) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .;microk8s kubectl apply -f .```
+6) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .;microk8s kubectl apply -f .```
 
 ## Setup using Minikube
 
 1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
 2) Rebuild the docker images so now minikube sees them ```docker-compose build```
 3) To enable the NGINX Ingress controller, run the following command: ```minikube addons enable ingress```.
-3) Install metrics server for
+4) Install metrics server for
    minikube ```kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml```
    so minikube can measure utilization of deployment (needed for HPA)
-3) Navigate to ```k8s``` folder and run ```kubectl delete -f .;kubectl apply -f .```
-4) Create a tunnel to load balancer with minikube: ```minikube service lb-backend``` or ```minikube tunnel lb-backend```
-5) Follow generate tunnel URI with to see backend container
+5) Navigate to ```k8s``` folder and run ```kubectl delete -f .;kubectl apply -f .```
+6) Create a tunnel to load balancer with minikube: ```minikube service lb-backend``` or ```minikube tunnel lb-backend```
+7) Follow generate tunnel URI with to see backend container
+8) As there is no proper DNS resolution supported by minikube yet, it is not possible to proceed further
 
 ### How to make a rollout
 
@@ -82,29 +89,36 @@ deployment process on GCP and ensure proper configuration of your Kubernetes obj
 
 #### Google Cloud
 
-`k8s-gcp` contains YAML files for GCP.
+`k8s-gcp` contains YAML files that are GCP used for GCP deployment.
+`k8s-gcp-chart` contains Helm charts that can be used to deploy on GCP.
 
 To set up dependencies - consult
 this [guide](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl)
 
-```bash
+Note: building frontend image for GCP can be tricky, as is case image is not build with amd64 architecture there may be
+problems with running it properly. For this reason `buildx` with `--platform=linux/amd64` flag can be used to be double
+sure it is properly build.
 
-# build FE with linux/amd64 architecture
-docker buildx build frontend -f frontend/frontend.dockerfile -t kotonium/k8app-frontend-image:1.2 --platform=linux/amd64
+1) You can build a docker image using `build_and_push_docker.sh` or by running `docker-compose build`.     
+   In case you want to build with `buildx`
+   use: `docker buildx build frontend -f frontend/frontend.dockerfile -t kotonium/k8app-frontend-image:1.2 --platform=linux/amd64`
+2) You have to be logged in with` gcloud auth login {username}`. Verify that log-in was successful with
+   running `gcloud auth list`.
+3) Connect to GCP cluster and configure local kubectl with command that is copied from GCP and looks
+   like: `gcloud container clusters get-credentials {cluster-name} --region {region_where_cluster_is_located}`
 
-gcloud auth login {username} 
-
-gcloud auth list 
-
-# Connect kubectl to google cloud
-gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1
-```
+4) Deploy kubernetes cluster to GCP using Helm with
+   ```bash
+   helm install k8s-app k8s-gcp-chart
+   ```
+5) As we have configured a real domain with SSL, after Ingress IP is issued, update the DNS routing to IP of Ingress.
+6) You are done. Follow the Frontend and Backend links and see them in action!
 
 ## Docker:
 
 ### Docker Images
 
-We have 2 images
+We have 2 images.
 
 ### Docker Compose:
 
@@ -116,29 +130,31 @@ To run our docker-compose implementation:
 1) Go inside k8app (root project) folder
 2) Run ```docker-compose up```
 3) Navigate to **frontend** http://localhost:5000/
-3) Navigate to **backend** http://localhost:8080/
-4) Check out main page and visit http://localhost:8080/docs to play with API
-5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
+4) Navigate to **backend** http://localhost:8080/
+5) Check out main page and visit http://localhost:8080/api/docs to play with API
+6) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
    stored on it.
 
 To perform an image build run: ```docker-compose build```. Note that you can adjust image names in `.env` file in root
 project folder.
 
-## Tech stack
+## Technologies stack
 
 To get more details about implementation of each module consult `backend/` and `frontend/` folders
 
 ### Backend
 
-Backend is built using Python and FastAPI framework.
+Backend is built using _Python_ and _FastAPI_ framework.
 
 ### Frontend
 
-Frontend is built using React and is run using npm (for development).
+Frontend is built using _React_. For production on top of `yarm` build a nginx image is used on top. For development,
+it can be run with either `yarm` or `npm run`.
 
 ### Database
 
-Postgres is used as primary data store. Credentials for Docker-compose version can be found in `.env` file. Credentials for `Microk8s` and `GCP` versions can be found in corresponding `ConfigMaps` and `Secrets`.
+Postgres is used as primary data store. Credentials for Docker-compose version can be found in `.env` file. Credentials
+for `Microk8s` and `GCP` versions can be found in corresponding `ConfigMaps` and `Secrets`.
 
 
 
