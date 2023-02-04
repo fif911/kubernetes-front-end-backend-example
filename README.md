@@ -43,6 +43,15 @@ k8app ./k8app-chart. These artifacts will help to streamline the deployment proc
 The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the
 deployment process on GCP and ensure proper configuration of your Kubernetes objects.
 
+## Setup using microk8s
+
+1) Start microk8s: ```microk8s start```
+2) Enable dns: ```microk8s enable dns```
+3) Enable cert-manager: ```microk8s enable cert-manager```
+4) Enable ingress: ```microk8s enable ingress```
+5) Enable ha-cluster: ```microk8s enable ha-cluster```
+3) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .;microk8s kubectl apply -f .```
+
 ## Setup using Minikube
 
 1) Enable minikube to see local Docker images: ```eval $(minikube -p minikube docker-env)```
