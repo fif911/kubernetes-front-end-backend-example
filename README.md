@@ -2,22 +2,21 @@
 
 This is a **TodoList application** which has **backend, frontend and database** deployed using Kubernetes.
 
-**Running website in Google Cloud can be found here**:
+As it is easier for TA to deploy application in microk8s, but we also wanted our application to be accessible in the
+public internet - **we created 2 versions of the application**:
 
-* [Frontend](http://www.k8s.codes/)
-* [Backend](http://www.k8s.codes/api)
+1) Microk8s version located in `k8s-microk8s` folder
+2) And Google Cloud Platform (GCP) version located in `k8s-gcp` folder
 
-## How to run:
+**You can find running website in Google Cloud Platform using links below**:
 
-### Docker Compose:
+* Frontend: http://www.k8s.codes/ 
+* Backend: http://www.k8s.codes/api
 
-1) Go inside k8app folder
-2) Run ```docker-compose up```
-3) Navigate to **frontend** http://localhost:5000/
-3) Navigate to **backend** http://localhost:8080/
-4) Check out main page and visit http://localhost:8080/docs to play with API
-5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
-   stored on it.
+As we don't have wildcard SSL certificate, for GCP version we set an Ingress prefix for our Backend on `/api` path. For
+better Separation of Concerns, in our microk8s version Backend is located at `http://backend.k8app.com`.
+
+While following `HTTP` links mentioned above notice automatic redirects to `HTTPS`.
 
 ## Kubernetes
 
@@ -91,7 +90,33 @@ gcloud auth list
 gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1
 ```
 
+## Docker:
+
+### Docker Images
+
+We have 2 images
+
+### Docker Compose:
+
+For convenience of performing builds and making very first test runs, we also created docker-compose file that make use
+of 2 custom images and a Postgres database.
+
+To run our docker-compose implementation:
+
+1) Go inside k8app (root project) folder
+2) Run ```docker-compose up```
+3) Navigate to **frontend** http://localhost:5000/
+3) Navigate to **backend** http://localhost:8080/
+4) Check out main page and visit http://localhost:8080/docs to play with API
+5) If you wish you can connect to PostgresDB (find credentials in .env file) to investigate the items table and data
+   stored on it.
+
+To perform an image build run: ```docker-compose build```. Note that you can adjust image names in `.env` file in root
+project folder.
+
 ## Tech stack
+
+To get more details about implementation of each module consult `backend/` and `frontend/` folders
 
 ### Backend
 
@@ -99,14 +124,11 @@ Backend is built using Python and FastAPI framework.
 
 ### Frontend
 
-Backend is built on React component and is run using npm.
+Frontend is built using React and is run using npm (for development).
 
 ### Database
 
-Postgres is used as primary data store. Credentials can be found in .env file.
+Postgres is used as primary data store. Credentials for Docker-compose version can be found in `.env` file. Credentials for `Microk8s` and `GCP` versions can be found in corresponding `ConfigMaps` and `Secrets`.
 
-## Further details
-
-See detailed docs on ```backend``` and ```frontend``` in corresponding folders.
 
 
