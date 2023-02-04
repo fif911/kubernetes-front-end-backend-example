@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: application-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true" # Allow HTTP so we can redirect to HTTPS
+    networking.gke.io/v1beta1.FrontendConfig: "application-ingress-config"
+spec:
+  tls:
+    - hosts:
+        - 'k8s.codes'
+        - www.k8s.codes
+      secretName: k8s-codes-tls-secret
+  rules:
+    - host: www.k8s.codes
+      http: &backend # YAML anchor not avoid code duplication for another host
+        paths:
+          - pathType: Prefix
+            path: /api
+            backend:
+              service:
+                name: lb-backend
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: lb-frontend
+                port:
+                  number: 80
+    - host: k8s.codes
+      http: *backend

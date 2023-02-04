@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deploy
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: frontend
+        role: frontend
+    spec:
+      containers:
+        - name: frontend-container
+          image: kotonium/k8app-frontend-image:1.2
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: frontend-config
+          resources:
+            limits:
+              cpu: "0.3"
+              memory: "100Mi"
+            requests:
+              cpu: "0.25"
+              memory: "60Mi"

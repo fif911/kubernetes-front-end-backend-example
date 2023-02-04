@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: devops-role
+rules:
+  - apiGroups: [ "" ] # "" indicates the core API group
+    resources: [ "ingress", "deployments", "cert-managers", "replicaset", "secrets" ]
+    verbs: [ "get", "watch", "list", "update", "create", "patch", "delete" ]
