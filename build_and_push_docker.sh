@@ -13,12 +13,6 @@ echo -e "\t$build_command"
 eval $build_command
 echo ""
 
-# echo "Tagging container"
-# tag_command="docker tag k8app-$1-image dangg/k8app-$1-image"
-# echo -e "\t$tag_command"
-# eval $tag_command
-# echo ""
-
 echo "Pushing container"
 push_command="docker push dangg/k8app-$1-image"
 echo -e "\t$push_command"

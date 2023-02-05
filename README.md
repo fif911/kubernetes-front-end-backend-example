@@ -49,6 +49,30 @@ to use Microk8s instead.
 The `k8app-charts/` folder contains artifacts to assist in the creation of Helm charts using the command helm install
 k8app ./k8app-chart. These artifacts will help to streamline the deployment process for your Kubernetes application.
 
+### Roles
+We defined the following roles:
+- Developer
+   - Can fully manage configmaps, services, pods, and secrets in the default namepsace
+   - Test commands:
+      - ```kubectl auth can-i list pod --namespace default --as user_developer```
+         - Expected answer is ```yes```
+      - ```kubectl auth can-i list deploy --namespace default --as user_developer```
+         - Expected answer is ```no```
+- Devops
+   - Can fully manage ingress, deployments, cert-manager, replicaset, and secrets in the default namepsace
+   - Test commands:
+      - ```kubectl auth can-i list deploy --namespace default --as user_devops```
+         - Expected answer is ```yes```
+      - ```kubectl auth can-i list pod --namespace default --as user_devops```
+         - Expected answer is ```no```
+- Security
+   - Can fully manage configmaps and secrets in all namespaces
+   - Test commands:
+      - ```kubectl auth can-i list secrets --namespace default --as user_security```
+         - Expected answer is ```yes```
+      - ```kubectl auth can-i list deploy --namespace default --as user_security```
+         - Expected answer is ```no```
+
 ## Setup using microk8s
 
 1) Start microk8s: ```microk8s start```
@@ -56,7 +80,7 @@ k8app ./k8app-chart. These artifacts will help to streamline the deployment proc
 3) Enable cert-manager: ```microk8s enable cert-manager```
 4) Enable ingress: ```microk8s enable ingress```
 5) Enable ha-cluster: ```microk8s enable ha-cluster```
-6) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .;microk8s kubectl apply -f .```
+6) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .; microk8s kubectl apply -f .```
 7) Follow https://k8app.com for frontend and https://backend.k8app.com for backend
 
 ## Setup using Minikube
