@@ -55,7 +55,6 @@ In order to ensure that the application works on local version it is necessary t
 
 ```
 127.0.0.1 k8app.com
-127.0.0.1 k8app.backend.com
 127.0.0.1 backend.k8app.com
 ```
 
