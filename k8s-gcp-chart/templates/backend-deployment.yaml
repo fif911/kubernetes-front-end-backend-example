@@ -5,14 +5,14 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 1 # One pod will be killed when there is no load by HPA
+  replicas: 2 # One pod will be killed when there is no load by HPA
   selector:
     matchLabels:
       app: backend
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
     type: RollingUpdate
   template:
     metadata:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: kotonium/k8app-backend-image:1.1
+          image: kotonium/k8app-backend-image:1.2
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 80
@@ -35,8 +35,8 @@ spec:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
           resources:
             limits:
-              cpu: "0.5"
+              cpu: "0.25"
 #              memory: "128Mi"
             requests:
-              cpu: "0.25" # gives 1/2 of the limit
+              cpu: "0.15" # gives 1/2 of the limit
 #              memory: "64Mi"
