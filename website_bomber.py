@@ -21,7 +21,7 @@ async def bound_fetch(sem, url, session):
 
 
 async def run(r):
-    url = "https://www.k8s.codes/api/items"
+    url = "https://www.k8s.codes"
     tasks = []
     # create instance of Semaphore
     sem = asyncio.Semaphore(1000)
