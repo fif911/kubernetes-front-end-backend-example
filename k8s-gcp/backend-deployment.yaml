@@ -35,8 +35,8 @@ spec:
                 name: postgres-secret # populate db-specific secrets (needed to keep one source of truth)
           resources:
             limits:
-              cpu: "0.3"
+              cpu: "0.25"
 #              memory: "128Mi"
             requests:
-              cpu: "0.25" # gives 1/2 of the limit
+              cpu: "0.15" # gives 1/2 of the limit
 #              memory: "64Mi"
