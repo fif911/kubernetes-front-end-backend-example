@@ -80,8 +80,10 @@ We defined the following roles:
 3) Enable cert-manager: ```microk8s enable cert-manager```
 4) Enable ingress: ```microk8s enable ingress```
 5) Enable ha-cluster: ```microk8s enable ha-cluster```
-6) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .; microk8s kubectl apply -f .```
-7) Follow https://k8app.com for frontend and https://backend.k8app.com for backend
+6) Enable observability: ```microk8s enable observability```
+7) Enable rbac: ```microk8s enable rbac```
+8) Navigate to ```k8s-microk8s``` folder and run ```microk8s kubectl delete -f .; microk8s kubectl apply -f .```
+9) Follow https://k8app.com for frontend and https://backend.k8app.com for backend
 
 ## Setup using Minikube
 
