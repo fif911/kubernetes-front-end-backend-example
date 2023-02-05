@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8app-frontend-v1
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: k8app-frontend
+      version: v1.0.0
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: k8app-frontend
+        version: v1.0.0
+        role: frontend
+    spec:
+      containers:
+        - name: k8app-frontend
+          image: dangg/k8app-frontend-image
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: k8app-frontend-config
+          env:
+            - name: VERSION
+              value: v1.0.0
+          resources:
+            limits:
+              cpu: 0.5
+            requests:
+              cpu: 0.25 # gives 1/2 of the limit
