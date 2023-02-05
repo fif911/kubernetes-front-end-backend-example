@@ -30,7 +30,7 @@ Link to source files on GitHub: https://github.com/fif911/k8app
 
 This section provides information on the location and purpose of Kubernetes-related files.
 
-###`k8s-gcp/` folder
+### `k8s-gcp/` folder
 
 The `k8s-gcp/` folder contains artifacts for deployment using Google Cloud Platform. These artifacts will aid in the
 deployment process on GCP and ensure proper configuration of your Kubernetes objects. These are the files that were
