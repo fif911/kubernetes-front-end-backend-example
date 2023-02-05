@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deploy-v1
+  name: frontend-deploy-v2
   labels:
     app: frontend
 spec:
@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: kotonium/k8app-frontend-image:1.3
+          image: kotonium/k8app-frontend-image:1.4
           imagePullPolicy: "Always"
           ports:
             - containerPort: 80
