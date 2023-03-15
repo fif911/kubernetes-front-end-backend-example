@@ -1,16 +1,16 @@
-# Simple containerized application with Kubernetes.
+# Kubernetes frontend backend example
 
+Simple containerized application with Kubernetes.
 This is a **TodoList application** which has **backend, frontend and database** deployed using Kubernetes.
 
-As it is easier for TA to deploy application in microk8s, but we also wanted our application to be accessible in the
-public internet - **we created 2 versions of the application** (and the helm charts for these versions):
+This example can be deployed in GCP (Google Cloud Platform) and microk8s.
 
-1) Microk8s version located in `k8s-microk8s` folder
-2) And Google Cloud Platform (GCP) version located in `k8s-gcp` folder
-3) Helm charts in `k8s-microk8s-chart` folder are a proper helm charts and are highly is customizable
-4) Helm charts in `k8s-gcp-chart` folder is a lot simpler and are not customizable
+### Project structure
+1) MicroK8s version located in `k8s-microk8s` folder
+2) Google Cloud Platform (GCP) version located in `k8s-gcp` folder
+3) Helm charts are located in  `k8s-microk8s-chart` and `k8s-gcp-chart` folders correspondingly
 
-**You can find running website in Google Cloud Platform using links below**:
+**You can find running example website in Google Cloud Platform using links below**:
 
 * Frontend: http://www.k8s.codes/
 * Backend: http://www.k8s.codes/api
@@ -19,8 +19,6 @@ As we don't have wildcard SSL certificate, for GCP version we set an Ingress pre
 better Separation of Concerns, in our microk8s version Backend is located at `http://backend.k8app.com`.
 
 While following `HTTP` links mentioned above notice automatic redirects to `HTTPS`.
-
-Link to source files on GitHub: https://github.com/fif911/k8app
 
 ## Kubernetes
 
